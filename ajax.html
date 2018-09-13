@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Vue js V2 Listas</title>
+</head>
+
+<body>
+
+    <div id="main">
+
+        <div class="row">
+            <div class="col-sm-4">
+                <h1>Lista vuejs -AJAX</h1>
+                <ul class="listg-group">
+                    <li v-for="item in lista" class="list-group-item">
+                        <!-- {{ item.name.first }} {{ item.name.last }}-->
+                        {{ item.name }} {{ item.username }}
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-8">
+                <h1>JSON</h1>
+                <pre>
+                    {{ $data | json }}
+                </pre>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- https://cdnjs.com/ -->
+    <!-- Pagina de muestra de los json   https://randomuser.me/   https://randomuser.me/api/?results=10-->
+    <!-- otro de json es  https://jsonplaceholder.typicode.com/ -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.min.js"></script>
+    <!-- Para poder leer los json -->
+    <script>
+        // var urlUsers = 'https://randomuser.me/api/?results=10';
+        var urlUsers = 'https://jsonplaceholder.typicode.com/users';
+        new Vue({
+            el: '#main',
+            created: function() {
+                this.getUsers();
+            },
+            data: {
+                lista: []
+            },
+            methods: {
+                getUsers: function() {
+                    this.$http.get(urlUsers).then(function(response) {
+                        //this.lista = response.data.results; esto es lo que cambia
+                        this.lista = response.data;
+                    });
+                }
+            },
+
+
+        });
+    </script>
+</body>
+
+</html>
